@@ -1,6 +1,6 @@
 // A $( document ).ready() block.
-$( document ).ready(function() {
-    console.log( "ready!" );
+$(document).ready(function() {
+    console.log("ready!");
 });
 
 //setting our variables..
@@ -9,117 +9,121 @@ $( document ).ready(function() {
 //every API key is the same with Giphy, so I don't really see the need to use 
 
 //starting list of  pre-loaded gifs
-var gifs = ["Star Wars", "Nintendo", "The Office", "Simpsons"];               
+var gifs = ["Star Wars", "Nintendo", "The Office", "Simpsons"];
 
 
 
-
-  
 
 var gifCounter = 0;
 
-function displayGIFs(){
+function displayGIFs() {
 
-var searchQuery = $(this).attr("data-name");
+    var searchQuery = $(this).attr("data-name");
 
-var queryURLBase = "http://api.giphy.com/v1/gifs/search?q=" + searchQuery + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var queryURLBase = "http://api.giphy.com/v1/gifs/search?q=" + searchQuery + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 
-$.ajax({
-          url: queryURLBase,
-          method: "GET"
+    $.ajax({
+            url: queryURLBase,
+            method: "GET"
         })
 
-       .done(function(response) {
+        .done(function(response) {
 
-        var gifDiv = $("<div class'gif'>");
-
-
-      
-
-        // Storing the rating data
-          var rating = response.data.rating;
-
-          // Creating an element to have the rating displayed
-         var pOne = $("<p>").text("Rating: " + rating);
-
-        // Displaying the rating
-       gifDiv.append(pOne);
+            var gifDiv = $("<div class'gif'>");
 
 
-       //retrieving the url for the image
-       var imgUrl = response.data.image_original_url;
-
-       //creating an element to hold the image
-       var image = $("<img>").attr("src", imgURL);
-
-       //appending the image
-       gifDiv.append(image);
 
 
-        console.log(queryURLBase);
+            // Storing the rating data
+            var rating = response.data.rating;
 
-        console.log(response);
+            // Creating an element to have the rating displayed
+            var pOne = $("<p>").text("Rating: " + rating);
 
-        console.log(response.data.rating);  
-       }) 
+            // Displaying the rating
+            gifDiv.append(pOne);
+
+
+            //retrieving the url for the image
+            var imgUrl = response.data.image_original_url;
+
+            //creating an element to hold the image
+            var image = $("<img>").attr("src", imgURL);
+
+            //appending the image
+            gifDiv.append(image);
+
+            console.log()
+
+
+            console.log(queryURLBase);
+
+            console.log(response);
+
+            console.log(response.data.rating);
+        })
 
 }
 //function for displaying gif data (image and ratings)
 function renderButtons() {
 
- $("#buttons-view").empty();
-//looping through the array of gifs
+    $("#buttons-view").empty();
+    //looping through the array of gifs
 
-for (var i = 0; i < gifs.length; i++) {
+    for (var i = 0; i < gifs.length; i++) {
 
-  //now, we dynamically generate buttons for each movie in the array
-  //the code $("<button>") is all jQuery needs to create the beginning and end tag
+        //now, we dynamically generate buttons for each movie in the array
+        //the code $("<button>") is all jQuery needs to create the beginning and end tag
 
-var a = $("<button>");
+        var a = $("<button>");
 
-// Adding a class of gif to our button
-a.addClass("gif");
- // Adding a data-attribute
-a.attr("data-name", gifs[i]);
+        // Adding a class of gif to our button
+        a.addClass("gif");
+        // Adding a data-attribute
+        a.attr("data-name", gifs[i]);
 
-// Providing the initial button text
-a.text(gifs[i]);
+        // Providing the initial button text
+        a.text(gifs[i]);
 
 
-//adding the button to the buttons-view div
+        //adding the button to the buttons-view div
 
-$("#buttons-view").append(a);
+        $("#buttons-view").append(a);
 
-//providing the initial button text
+        //providing the initial button text
 
-a.text(gifs[i]);
+        a.text(gifs[i]);
 
-// Adding the button to the buttons-view div
-$("#buttons-view").append(a);
+        // Adding the button to the buttons-view div
+        $("#buttons-view").append(a);
 
+
+    }
 
 }
 
-}  
-
 //this here function handles events where a movie button is clicked
 
-$("#add-GIF").on("click", function(event) {
-  event.preventDefault();
+$("#add-gif").on("click", function(event) {
+    event.preventDefault();
 
-  //this line will grab the input from the textbox
+    //this line will grab the input from the textbox
 
-  var movie = $("#GIF-input").val().trim();
+    var movie = $("#GIF-input").val().trim();
+
+    console.log(movie);
+
+
 
 
     //adding gif from the textbox to array
 
-  gifs.push(movie);
+    gifs.push(movie);
 
-  //calling renderButtons, which handles the processing of our movie array
+    //calling renderButtons, which handles the processing of our movie array
 
-  renderButtons();
+    renderButtons();
 });
 
 
@@ -129,4 +133,14 @@ $(document).on("click", ".movie", displayGIFs);
 
 //calling the renderButtons function to display the initial buttons
 
+
+
 renderButtons();
+
+
+
+///as of 7:55 on tuesday night, following issues:
+
+//out default buttons are generating on page load, but produce no gifs or ratings when clicked. 
+//furthermore when text is intered into the search bar, once the "gif it up" button is clicked, the term dissapears but no content is displayed. 
+//plans to fix after break: console log, debugging, and scouring errors.
