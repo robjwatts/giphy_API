@@ -17,7 +17,7 @@
       <div class="container">
          <div class="row">
             <div class="col-md-12" id="header">
-               <div id="suggestedGifs"></div>
+               <div id="buttons-view"></div>
             </div>
          </div>
       </div>
@@ -28,20 +28,16 @@
 
 
             <!--search form-->
-     <div class="container">
-         <div class="row" id="searchBar">
-            
-               <div class="col-xs-6">
-                  <div class="input-group">
-                     <input type="text" id ="searchTerm" class="form-control" placeholder="Search for...">
-                     <span class="input-group-btn">
-                     <button class="btn btn-default" type="button" id="searchButton">GIF it up!</button>
-                     </span>
-                  </div>
-               </div>
-            
-		</div>
-	</div>
+      <!-- Rendered buttons will get dumped Here  -->
+    <div id="buttons-view"></div>
+
+    <form id="movie-form">
+      <label for="movie-input">GIF it up!</label>
+      <input type="text" id="GIF-input"><br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-gif" type="submit" value="GIF it up!">
+    </form>
 
             <!--results area-->
 
