@@ -36,7 +36,7 @@ function displayGIFs() {
 
 
             // Storing the rating data
-            var rating = response.data.rating;
+            var rating = response.data[x].rating;
 
             // Creating an element to have the rating displayed
             var pOne = $("<p>").text("Rating: " + rating);
@@ -46,7 +46,7 @@ function displayGIFs() {
 
 
             //retrieving the url for the image
-            var imgUrl = response.data.image_original_url;
+            var imgUrl = response.data[x].images.original_url;
 
             //creating an element to hold the image
             var image = $("<img>").attr("src", imgURL);
