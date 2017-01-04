@@ -11,60 +11,6 @@ $(document).ready(function() {
 //starting list of  pre-loaded gifs
 var gifs = ["Star Wars", "Nintendo", "The Office", "Simpsons"];
 
-
-
-
-var gifCounter = 0;
-
-function displayGIFs() {
-
-    var searchQuery = $(this).attr("data-name");
-
-    var queryURLBase = "http://api.giphy.com/v1/gifs/search?q=" + searchQuery + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-
-    $.ajax({
-            url: queryURLBase,
-            method: "GET"
-        })
-
-        .done(function(response) {
-
-            var gifDiv = $("<div class'gif'>");
-
-
-
-
-            // Storing the rating data
-            var rating = response.data[x].rating;
-
-            // Creating an element to have the rating displayed
-            var pOne = $("<p>").text("Rating: " + rating);
-
-            // Displaying the rating
-            gifDiv.append(pOne);
-
-
-            //retrieving the url for the image
-            var imgUrl = response.data[x].images.original_url;
-
-            //creating an element to hold the image
-            var image = $("<img>").attr("src", imgURL);
-
-            //appending the image
-            gifDiv.append(image);
-
-            console.log()
-
-
-            console.log(queryURLBase);
-
-            console.log(response);
-
-            console.log(response.data.rating);
-        })
-
-}
 //function for displaying gif data (image and ratings)
 function renderButtons() {
 
@@ -91,17 +37,14 @@ function renderButtons() {
 
         $("#buttons-view").append(a);
 
-        //providing the initial button text
-
-        a.text(gifs[i]);
-
-        // Adding the button to the buttons-view div
-        $("#buttons-view").append(a);
+        
 
 
     }
 
 }
+renderButtons();
+
 
 //this here function handles events where a movie button is clicked
 
@@ -110,16 +53,16 @@ $("#add-gif").on("click", function(event) {
 
     //this line will grab the input from the textbox
 
-    var movie = $("#GIF-input").val().trim();
+    var buttonItem = $("#GIF-input").val().trim();
 
-    console.log(movie);
+    console.log(gifs);
 
 
 
 
     //adding gif from the textbox to array
 
-    gifs.push(movie);
+    gifs.push(buttonItem);
 
     //calling renderButtons, which handles the processing of our movie array
 
@@ -127,15 +70,48 @@ $("#add-gif").on("click", function(event) {
 });
 
 
-//adding a click event listener to all elements with a class of "gif"
+$("#gif").on("click", function(event) {
+    $("#resultsArea").empty()
 
-$(document).on("click", ".movie", displayGIFs);
-
-//calling the renderButtons function to display the initial buttons
-
+    var gifData = $(this).data("name");
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gifData + "&api_key=dc6zaTOxFJmzC&limit=20";
 
 
-renderButtons();
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+
+    })
+
+    .done(function(response) {
+        console.log(response)
+        var results = response.data;
+
+
+        for (var i = 0; i < results.length ; i++) {
+            var gifDiv = $("<div class='item'>");
+            var rating = results[i].rating;
+            var p = $("<p>").text("Rating: " + rating);
+
+            var gifImage = $("<img>");
+            gifImage.attr("src", results[i].images.fixed_height.url);
+
+            givDiv.prepend(p);
+            gifDiv.prepend(gifImage);
+            $("#resultsArea").prepend(gifDiv);
+        }
+    });
+
+
+})
+
+
+
+
+
+
+
+
 
 
 
