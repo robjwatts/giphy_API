@@ -70,11 +70,11 @@ $("#add-gif").on("click", function(event) {
 });
 
 
-$("#gif").on("click", function(event) {
+$(document).on("click", ".gif", function(event) {
     $("#resultsArea").empty()
 
     var gifData = $(this).data("name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gifData + "&api_key=dc6zaTOxFJmzC&limit=20";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifData + "&api_key=dc6zaTOxFJmzC&limit=20";
 
 
     $.ajax({
@@ -96,7 +96,7 @@ $("#gif").on("click", function(event) {
             var gifImage = $("<img>");
             gifImage.attr("src", results[i].images.fixed_height.url);
 
-            givDiv.prepend(p);
+            gifDiv.prepend(p);
             gifDiv.prepend(gifImage);
             $("#resultsArea").prepend(gifDiv);
         }
