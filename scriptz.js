@@ -37,7 +37,7 @@ function renderButtons() {
 
         $("#buttons-view").append(a);
 
-        
+
 
 
     }
@@ -70,53 +70,69 @@ $("#add-gif").on("click", function(event) {
 });
 
 
-$(document).on("click", ".gif", function(event) {
-    $("#resultsArea").empty()
+$(document).on("click", ".gif", function(event, queryStr) {
+
 
     var gifData = $(this).data("name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifData + "&api_key=dc6zaTOxFJmzC&limit=20";
 
 
     $.ajax({
-        url: queryURL,
-        method: "GET"
+            url: queryURL,
+            method: "GET"
 
-    })
-
-
-
-    .done(function(response) {
-        console.log(response)
-        var results = response.data;
+        })
 
 
-        for (var i = 0; i < results.length ; i++) {
-            var gifDiv = $("<div class='item'>");
-            var rating = results[i].rating;
-            var p = $("<p>").text("Rating: " + rating);
 
-            var gifImage = $("<img>");
-          
-            $(gifImage).addClass("gif");
-              gifImage.attr("src", results[i].images.fixed_height.url);
+        .done(function(response) {
+            console.log(response)
+            // console.log(gifs, gifs.indexOf(queryStr))
+            // gifs.splice(gifs.indexOf(queryStr), 1);
+            var results = response.data;
+            $("#resultsArea").empty();
 
-            $('.gif').gifplayer();
-
-            gifDiv.prepend(p);
-            gifDiv.prepend(gifImage);
-            $("#resultsArea").prepend(gifDiv);
-
-             $(gifImage).on("click", function(){
-    console.log("you have clicked an image");
+           
 
 
-    // gifImage.attr("src", results[i].images.fixed_height.url);
+            for (var i = 0; i < results.length; i++) {
+                var gifDiv = $("<div class='item'>");
+                var rating = results[i].rating;
+                var p = $("<p>").text("Rating: " + rating);
+
+                var gifImage = $("<img class=giphyResult>").attr("src",results[i].images.fixed_height_still.url);
 
 
- })
-        }
-    });
 
+
+                gifDiv.prepend(p);
+                gifDiv.prepend(gifImage);
+                $("#resultsArea").prepend(gifDiv);
+
+
+
+                // if ($("img").hasClass(".giphyResult")) {
+                //     $(gifImage).on("click", function() {
+                //         $(".giphyResult").toggleClass("active");
+                //         console.log("looks like the class is active, now..")
+                //     })
+
+                // } else {
+
+                    
+
+                // }
+
+   
+             $(".giphyResult").on("click", function() {
+
+                console.log("you have clicked an image");
+                $(this).toggleClass('active');
+                if($(this).hasClass('active')){
+                    $(this).attr("src",results[i].images.fixed_height.url);
+                } else {
+                    $(this).attr("src",results[i].images.fixed_height_still.url);
+                }
 
 })
 
@@ -124,12 +140,46 @@ $(document).on("click", ".gif", function(event) {
 
 
 
+            }
+
+            
+
+           
+
+       
+
+
+                     
+                })
+
+
+
+
+                
+                
+                
+            })
+
+       
+
+
+               
+
+
+                    
+
+
+
+
+                    
 
 
 
 
 
-///as of 11:45 on Saturday, following issues:
+
+
+///as of 11:45 on Saturdaygit push o, following issues:
 
 //having issues getting to gifs to pause/play. tried this plugin but it doesn't seem to play nice with the giphy API
 
