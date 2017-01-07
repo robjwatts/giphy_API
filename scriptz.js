@@ -111,30 +111,26 @@ $(document).on("click", ".gif", function(event, queryStr) {
 
 
 
-                // if ($("img").hasClass(".giphyResult")) {
-                //     $(gifImage).on("click", function() {
-                //         $(".giphyResult").toggleClass("active");
-                //         console.log("looks like the class is active, now..")
-                //     })
 
-                // } else {
-
-                    
-
-                // }
 
    
-             $(".giphyResult").on("click", function() {
+             $("img").on("click", function() {
 
                 console.log("you have clicked an image");
-                $(this).toggleClass('active');
-                if($(this).hasClass('active')){
-                    $(this).attr("src",results[i].images.fixed_height.url);
+                var self = $(this);
+               
+                if($(this).attr('src') === results[i].images.original.url){
+                    $(self).attr('src', results[i].images.original_still.url);
                 } else {
-                    $(this).attr("src",results[i].images.fixed_height_still.url);
+                    $(self).attr('src', results[i].images.original.url);
                 }
 
-})
+
+
+
+
+              
+});
 
 
 
@@ -146,7 +142,17 @@ $(document).on("click", ".gif", function(event, queryStr) {
 
            
 
-       
+        // if ($("img").hasClass(".giphyResult")) {
+                //     $(gifImage).on("click", function() {
+                //         $(".giphyResult").toggleClass("active");
+                //         console.log("looks like the class is active, now..")
+                //     })
+
+                // } else {
+
+                    
+
+                // }
 
 
                      
