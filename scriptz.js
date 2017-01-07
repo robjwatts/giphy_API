@@ -83,6 +83,8 @@ $(document).on("click", ".gif", function(event) {
 
     })
 
+
+
     .done(function(response) {
         console.log(response)
         var results = response.data;
@@ -94,11 +96,24 @@ $(document).on("click", ".gif", function(event) {
             var p = $("<p>").text("Rating: " + rating);
 
             var gifImage = $("<img>");
-            gifImage.attr("src", results[i].images.fixed_height.url);
+          
+            $(gifImage).addClass("gif");
+              gifImage.attr("src", results[i].images.fixed_height.url);
+
+            $('.gif').gifplayer();
 
             gifDiv.prepend(p);
             gifDiv.prepend(gifImage);
             $("#resultsArea").prepend(gifDiv);
+
+             $(gifImage).on("click", function(){
+    console.log("you have clicked an image");
+
+
+    // gifImage.attr("src", results[i].images.fixed_height.url);
+
+
+ })
         }
     });
 
@@ -114,9 +129,8 @@ $(document).on("click", ".gif", function(event) {
 
 
 
+///as of 11:45 on Saturday, following issues:
 
-///as of 7:55 on tuesday night, following issues:
+//having issues getting to gifs to pause/play. tried this plugin but it doesn't seem to play nice with the giphy API
 
-//out default buttons are generating on page load, but produce no gifs or ratings when clicked. 
-//furthermore when text is intered into the search bar, once the "gif it up" button is clicked, the term dissapears but no content is displayed. 
-//plans to fix after break: console log, debugging, and scouring errors.
+//(http://rubentd.com/gifplayer/)
